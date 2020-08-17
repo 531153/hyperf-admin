@@ -196,7 +196,7 @@ class MenuView implements UiViewInterface
                         }
                         return $options;
                     },
-                    'info' => '【暂未支持】新增和编辑会创建/form或/:id的前端路由',
+                    'info' => '【预置权限暂未支持，需手动添加】新增和编辑会创建/form或/:id的前端路由',
                     'depend' => [
                         'field' => 'is_scaffold',
                         'value' => 1,
