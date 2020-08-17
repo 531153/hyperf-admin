@@ -121,9 +121,6 @@ class Menu extends AbstractController
         if ($this->isGet()) {
             return;
         }
-
-
-
         $scaffold_action = $this->request->post('scaffold_action');
         // 更新预置的脚手架权限
         $action_keys = $scaffold_action ? array_keys($scaffold_action) : [];
