@@ -229,7 +229,7 @@ class MenuView implements UiViewInterface
                         ],
                     ],
                 ],
-                'roles|分配角色' => [
+               /* 'roles|分配角色' => [
                     'rule' => 'array',
                     'type' => 'cascader',
                     'virtual_field' => true,
@@ -247,7 +247,7 @@ class MenuView implements UiViewInterface
                         // $data['value'] = $this->authService->getMenuRoleIds($id);
                         //$data['options'] = $this->authService->getRoleTree();
                     },
-                ],
+                ],*/
             ],
             'table' => [
                 'is_tree' => true,
