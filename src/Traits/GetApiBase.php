@@ -326,7 +326,7 @@ trait GetApiBase
      * @param null $model
      * @return bool
      */
-    protected function _delete($val = null, $pk = 'id', $model = null)
+    protected function _delete($val = null, $pk = '', $model = null)
     {
         // data 数据已经按照验证器过滤。已去掉多余数据，可以直接使用
         if (empty($model)) $model = $this->getModel();
