@@ -11,7 +11,7 @@ class ViewMaker extends AbstractMaker
     {
         $arr = explode('\\', $model_class);
         $model_name = end($arr);
-        $controller_name = $model_name . 'View';
+        $controller_name = $model_name . 'Views';
         $class_namespace = $this->pathToNamespace($path);
         $save_path = BASE_PATH . '/' . $path . '/' . $controller_name . '.php';
         /** @var \Nette\PhpGenerator\ClassType $class */
@@ -67,14 +67,14 @@ class ViewMaker extends AbstractMaker
         if (in_array('editButton', $data['base_init'] ?? [])) {
             $options['table']['rowActions'][] = [
                 'type' => 'jump',
-                'target' => "/{$route}/{id}",
+                'target' => "/{$route}/form?id={id}",
                 'text' => '编辑',
             ];
         }
         if (in_array('deleteButton', $data['base_init'] ?? [])) {
             $options['table']['rowActions'][] = [
                 'type' => 'api',
-                'target' => "/{$route}/delete",
+                'target' => "delete:/{$route}/delete/{id}",
                 'text' => '删除',
                 'props' => [
                     'type' => 'danger',

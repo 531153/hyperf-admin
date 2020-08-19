@@ -66,14 +66,14 @@ class DevView
             ],
             'controller_path|Controller路径' => [
                 'rule' => 'required',
-                'default' => 'app/Controller/Api/V1',
+                'default' => 'app/Controller/Api',
                 'col' => [
                     'span' => 12,
                 ],
             ],
             'view_path|View配置路径' => [
                 'rule' => 'required',
-                'default' => 'app/View',
+                'default' => 'app/Views',
                 'col' => [
                     'span' => 12,
                 ],
@@ -412,7 +412,7 @@ class DevView
             ],
             'view_path|View配置路径' => [
                 'rule' => '',
-                'default' => 'app/View',
+                'default' => 'app/Views',
                 'col' => [
                     'span' => 12,
                 ],

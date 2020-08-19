@@ -94,8 +94,9 @@ class ControllerMaker extends AbstractMaker
         }
 
         if ($model_class != '') {
-            $namespace->addUse($model_class);
-            $class->addProperty('modelClass', new Literal('Admin' . $model_name . '::class'));
+            $as = $controller_name . $model_name;
+            $namespace->addUse($model_class, $as);
+            $class->addProperty('modelClass', new Literal($as . '::class'));
         }
 
         $config['api_init'] = (array)array_filter($config['api_init']);
