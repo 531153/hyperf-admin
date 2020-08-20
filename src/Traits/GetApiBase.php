@@ -203,7 +203,7 @@ trait GetApiBase
             $query = $model;
         } else {
             if (empty($model)) $model = $this->getModel();
-            if (empty($data)) $data = $this->request->getParsedBody();
+            if (empty($data)) $data = $this->request->all();
             $query = $this->QueryHelper($model, $data);
         }
         $this->callback('_before', $query);
