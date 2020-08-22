@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Mzh\Admin\Controller\Api;
 
 use Exception;
+use Hyperf\HttpServer\Annotation\Middleware;
 use Mzh\Admin\Exception\BusinessException;
 use Mzh\Admin\Exception\ValidateException;
 use Mzh\Admin\Library\Auth;
@@ -19,6 +20,7 @@ use Mzh\Swagger\Annotation\PostApi;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @ApiController(tag="后台-通用配置模块")
  */
 class Cconf

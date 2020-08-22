@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Mzh\Admin\Controller\Api;
 
 use Hyperf\Filesystem\FilesystemFactory;
+use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\HttpServer\Router\DispatcherFactory;
 use Hyperf\Utils\Str;
 use League\Flysystem\FileExistsException;
@@ -33,6 +34,7 @@ use Mzh\Swagger\Annotation\PostApi;
 use Mzh\Swagger\Annotation\Query;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @ApiController(tag="公共-Upload模块")
  */
 class Upload extends AbstractController

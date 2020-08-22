@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Mzh\Admin\Controller\Api;
 
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Annotation\Middleware;
 use Mzh\Admin\Controller\AbstractController;
 use Mzh\Admin\Model\UserRole;
 use Mzh\Admin\Service\UserService;
@@ -29,6 +30,7 @@ use Mzh\Swagger\Annotation\Query;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @ApiController(tag="后台-用户模块", description="资讯列表/分类/详情")
  * Class IndexController
  * @package Mzh\Admin\Controller

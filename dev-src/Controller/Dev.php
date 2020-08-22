@@ -4,6 +4,7 @@ namespace Mzh\DevTools\Controller;
 
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\AutoController;
+use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Mzh\Admin\Exception\ValidateException;
@@ -17,6 +18,7 @@ use Mzh\DevTools\ViewMaker;
 use Mzh\DevTools\Views\DevView;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @AutoController(prefix="/api/dev",tag="开发工具", description="开发工具")
  * Class IndexController
  * @package Mzh\Admin\Controller

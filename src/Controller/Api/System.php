@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Mzh\Admin\Controller\Api;
 
 use Hyperf\Di\Annotation\Inject;
+use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\Utils\Str;
 use Mzh\Admin\Controller\AbstractController;
 use Mzh\Admin\Service\AuthService;
@@ -22,6 +23,7 @@ use Mzh\Swagger\Annotation\GetApi;
 use Psr\Http\Message\ResponseInterface;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @ApiController(tag="后台-系统配置模块", description="系统")
  * Class IndexController
  * @package Mzh\Admin\Controller

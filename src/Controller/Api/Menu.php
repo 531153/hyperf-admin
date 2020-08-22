@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Mzh\Admin\Controller\Api;
 
+use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\HttpServer\Router\DispatcherFactory;
 use Hyperf\Utils\Str;
 use Mzh\Admin\Controller\AbstractController;
@@ -29,6 +30,7 @@ use Mzh\Swagger\Annotation\GetApi;
 use Mzh\Swagger\Annotation\Query;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @ApiController(tag="后台-菜单模块")
  */
 class Menu extends AbstractController

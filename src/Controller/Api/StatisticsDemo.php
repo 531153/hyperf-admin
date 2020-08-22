@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace Mzh\Admin\Controller\Api;
 
+use Hyperf\HttpServer\Annotation\Middleware;
 use Mzh\Swagger\Annotation\ApiController;
 use Mzh\Swagger\Annotation\GetApi;
 
 /**
+ * @Middleware(\Mzh\Admin\Middleware\AuthMiddleware::class)
  * @ApiController(tag="后台-首页统计模块-示例")
  */
 class StatisticsDemo
