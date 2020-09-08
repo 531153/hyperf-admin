@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
+
 namespace Mzh\Admin\Components\Form;
 
 use Hyperf\Utils\Arr;
 use Mzh\Admin\Components\Component;
 use Mzh\Admin\Form;
 use Mzh\Admin\Form\FormItem;
-use Storage;
 
 class Upload extends Component
 {
@@ -35,8 +35,8 @@ class Upload extends Component
 
     public function __construct($value = null)
     {
-        $this->action = '';//route('admin.handle-upload-image');
-        $this->host = '';// Storage::disk(config('admin.upload.disk'))->url('/');
+        $this->action = route('upload/image');
+        $this->host = config('admin.upload.host',route('/'));
         $this->componentValue($value);
     }
 
@@ -48,18 +48,14 @@ class Upload extends Component
     public function destroy(FormItem $formItem)
     {
         $files = [];
-
         if (is_array($formItem->original)) {
             $files = $formItem->original;
         } else {
             $files[] = $formItem->original;
         }
+        $storage = Storage()->getDriver();
 
-
-        return '';
-        $storage = Storage::disk(config('admin.upload.disk'));
         collect($files)->each(function ($file) use ($storage) {
-
             if (!empty($this->valueName)) {
                 $file = $file[$this->valueName];
             }
@@ -199,7 +195,7 @@ class Upload extends Component
     public function file()
     {
         $this->type = "file";
-        $this->action = route('admin.handle-upload-file');
+        $this->action = route('upload/file');
         return $this;
     }
 

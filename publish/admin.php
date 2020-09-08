@@ -27,7 +27,7 @@ return [
     //底部菜单
     'footerLinks' => [
         [
-            'href' => 'https://github.com/lphkxd/hyperf-vue-admin',
+            'href' => 'https://github.com/lphkxd/hyperf-admin/tree/v2-dev',
             'title' => 'hyperf版官网'
         ],[
             'href' => 'https://github.com/SmallRuralDog/laravel-vue-admin',

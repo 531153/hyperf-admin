@@ -10,7 +10,7 @@ use Hyperf\HttpServer\Contract\ResponseInterface;
 use Mzh\Admin\Components\Widgets\Html;
 use Psr\Container\ContainerInterface;
 
-trait HasUiBase
+trait HasApiBase
 {
 
     /**

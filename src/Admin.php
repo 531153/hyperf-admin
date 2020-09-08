@@ -101,15 +101,7 @@ class Admin
         })->all();
     }
 
-
-    public function bootstrap()
-    {
-        require config('admin.bootstrap', admin_path('bootstrap.php'));
-    }
-
-
     /**
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null|Administrator
      */
     public function user()
     {
@@ -119,7 +111,6 @@ class Admin
     /**
      * Attempt to get the guard from the local cache.
      *
-     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
      */
     public function guard()
     {
@@ -131,7 +122,7 @@ class Admin
 
     public function validatorData(array $all, $rules, $message = [])
     {
-        $validator = \Validator::make($all, $rules, $message);
+        $validator = Validator::make($all, $rules, $message);
         if ($validator->fails()) {
             abort(400, $validator->errors()->first());
         }

@@ -1,6 +1,5 @@
 import Vue from "vue";
 
-
 Vue.component("login", require("@/components/Login").default);
 Vue.component("Root", require("@/components/Root").default);
 Vue.component("Content", require("@/components/layout/Content").default);
@@ -11,7 +10,6 @@ Vue.component("Tree", require("@/components/grid/Tree").default);
 Vue.component("Form", require("@/components/form/Form").default);
 Vue.component("BaseForm", require("@/components/form/BaseForm").default);
 Vue.component("MenuItem", require("@/components/layout/MenuItem").default);
-// Vue.component("TreeTable", require("@/components/grid/TreeTable").default);
 Vue.component("GSwitch", require("@/components/widgets/grid/Switch").default);
 
 //Form

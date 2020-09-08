@@ -7,6 +7,7 @@ use Mzh\Admin\Components\Form\Input;
 use Mzh\Admin\Components\Form\Select;
 use Mzh\Admin\Components\Form\Upload;
 use Mzh\Admin\Components\Grid\Avatar;
+use Mzh\Admin\Components\Grid\GSwitch;
 use Mzh\Admin\Components\Grid\Tag;
 use Mzh\Admin\Components\Widgets\Button;
 use Mzh\Admin\Components\Widgets\Dialog;

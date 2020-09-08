@@ -8,10 +8,20 @@ use Hyperf\HttpServer\Request;
 use Hyperf\Utils\Context;
 use Mzh\Admin\Components\Widgets\Html;
 use Mzh\Admin\Layout\Content;
+use Mzh\Admin\StorageFactory;
 use Psr\Http\Message\ServerRequestInterface;
 
 
-
+if (!function_exists('Storage')) {
+    /**
+     * @param string $fileSystem
+     * @return StorageFactory
+     */
+    function Storage($fileSystem = '')
+    {
+        return getContainer(StorageFactory::class)->disk($fileSystem);
+    }
+}
 if (!function_exists('generate_tree')) {
     function generate_tree(array $array, $pid_key = 'pid', $id_key = 'id', $children_key = 'children', $callback = null)
     {
@@ -56,19 +66,21 @@ if (!function_exists('is_validURL')) {
 
 
 if (!function_exists('request')) {
-    function route($url,$param = [])
+    function route($url, $param = [])
     {
+        if (is_validURL($url)) {
+            return $url;
+        }
         $uri = request()->getUri();
-        $url = str_replace('.', '/', $url);
-        if (!empty($param)){
-            $uri->withQuery(http_build_query($param));
+        if (!empty($param)) {
+            $param = http_build_query($param);
+            $uri->withQuery($param);
         }
         return $uri->withPath($url)->__toString();
     }
 
 }
 if (!function_exists('request')) {
-
     /**
      * Get admin path.
      *

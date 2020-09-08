@@ -6,9 +6,9 @@ namespace Mzh\Admin\Traits;
 use Mzh\Swagger\Annotation\DeleteApi;
 use Mzh\Swagger\Annotation\Path;
 
-trait HasUiDelete
+trait HasApiDelete
 {
-    use HasUiBase;
+    use HasApiBase;
 
     /**
      * @DeleteApi(path="{id}",summary="删除接口")

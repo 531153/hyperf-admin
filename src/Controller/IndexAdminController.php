@@ -40,7 +40,7 @@ class IndexAdminController extends AbstractAdminController
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="x4LYW3KiEUjRqUE4zsbnT5Niwzube5Z02Te1SbXb">
-    <title>LaravelVueAdmin</title>
+    <title>HyperfVueAdmin</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         </head>
 <body>
@@ -74,8 +74,8 @@ EOF;
     protected function getUrls()
     {
         return [
-            'logout' => route('admin.logout'),
-            'setting' => route('admin.setting')
+            'logout' => route('admin/logout'),
+            'setting' => route('admin/setting')
         ];
     }
 }

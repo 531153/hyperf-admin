@@ -24,15 +24,15 @@ export default {
   mixins:[FormItemComponent],
   data() {
     return {
+      vm:null,
       options: this.attrs.options
     };
   },
   methods: {
     onChange(value) {
-      let resValue = value;
-      this.value = value
-
+      this.props.value = value
     }
+
   }
 };
 </script>

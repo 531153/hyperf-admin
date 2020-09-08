@@ -8,9 +8,9 @@ use Mzh\Swagger\Annotation\GetApi;
 use Mzh\Swagger\Annotation\Path;
 use Mzh\Swagger\Annotation\PutApi;
 
-trait HasUiPut
+trait HasApiPut
 {
-    use HasUiBase;
+    use HasApiBase;
 
     /**
      * @GetApi(path="{id:\d+}",summary="获取UI配置")

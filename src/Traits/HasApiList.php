@@ -6,9 +6,9 @@ namespace Mzh\Admin\Traits;
 use Mzh\Admin\Layout\Content;
 use Mzh\Swagger\Annotation\GetApi;
 
-trait HasUiList
+trait HasApiList
 {
-    use HasUiBase;
+    use HasApiBase;
 
     /**
      * @GetApi ()

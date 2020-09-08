@@ -48,10 +48,8 @@ class Avatar extends GridComponent
 
     public function __construct($value = null)
     {
-        $this->host = '';//\Storage::disk(config('admin.upload.disk'))->url('/');
-
+        $this->host = config('admin.upload.host');// Storage::disk(config('admin.upload.disk'));
         $this->componentValue($value);
-
         $this->defaultSrc = config('admin.default_avatar');
     }
 

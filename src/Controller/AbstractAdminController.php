@@ -21,11 +21,11 @@ use Mzh\Admin\Components\Widgets\Dialog;
 use Mzh\Admin\Components\Widgets\Html;
 use Mzh\Admin\Components\Widgets\Markdown;
 use Mzh\Admin\Layout\Content;
-use Mzh\Admin\Traits\HasUiBase;
-use Mzh\Admin\Traits\HasUiCreate;
-use Mzh\Admin\Traits\HasUiDelete;
-use Mzh\Admin\Traits\HasUiList;
-use Mzh\Admin\Traits\HasUiPut;
+use Mzh\Admin\Traits\HasApiBase;
+use Mzh\Admin\Traits\HasApiCreate;
+use Mzh\Admin\Traits\HasApiDelete;
+use Mzh\Admin\Traits\HasApiList;
+use Mzh\Admin\Traits\HasApiPut;
 use Mzh\Swagger\Annotation\DeleteApi;
 use Mzh\Swagger\Annotation\GetApi;
 use Mzh\Swagger\Annotation\Path;
@@ -35,5 +35,5 @@ use Psr\Container\ContainerInterface;
 
 abstract class AbstractAdminController
 {
-    use HasUiCreate,HasUiDelete,HasUiList,HasUiPut;
+    use HasApiCreate,HasApiDelete,HasApiList,HasApiPut;
 }

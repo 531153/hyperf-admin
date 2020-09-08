@@ -9,9 +9,9 @@ use Mzh\Swagger\Annotation\Path;
 use Mzh\Swagger\Annotation\PostApi;
 use Mzh\Swagger\Annotation\PutApi;
 
-trait HasUiCreate
+trait HasApiCreate
 {
-    use HasUiBase;
+    use HasApiBase;
 
     /**
      * @PostApi(path="_self_path",summary="创建数据")
@@ -21,6 +21,7 @@ trait HasUiCreate
     {
         return $this->form(true)->store();
     }
+
     /**
      * @GetApi(summary="获取创建UI配置")
      * @return array|mixed

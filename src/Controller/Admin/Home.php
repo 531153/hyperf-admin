@@ -15,10 +15,10 @@ use Mzh\Admin\Components\Widgets\Alert;
 use Mzh\Admin\Components\Widgets\Card;
 use Mzh\Admin\Layout\Content;
 use Mzh\Admin\Layout\Row;
-use Mzh\Admin\Traits\HasUiCreate;
-use Mzh\Admin\Traits\HasUiDelete;
-use Mzh\Admin\Traits\HasUiList;
-use Mzh\Admin\Traits\HasUiPut;
+use Mzh\Admin\Traits\HasApiCreate;
+use Mzh\Admin\Traits\HasApiDelete;
+use Mzh\Admin\Traits\HasApiList;
+use Mzh\Admin\Traits\HasApiPut;
 use Mzh\Swagger\Annotation\ApiController;
 use Mzh\Swagger\Annotation\GetApi;
 
@@ -29,7 +29,7 @@ use Mzh\Swagger\Annotation\GetApi;
 class Home extends AbstractAdminController
 {
 
-    use HasUiCreate,HasUiDelete,HasUiList,HasUiPut;
+    use HasApiCreate,HasApiDelete,HasApiList,HasApiPut;
 
     /**
      * 重写list 默认也可以不写此方法
