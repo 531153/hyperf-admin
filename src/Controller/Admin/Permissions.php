@@ -54,7 +54,6 @@ class Permissions extends AbstractAdminController
         //$grid->dataUrl(route('admin.permissions.route'));
         $grid->tree();
 
-
         $grid->model()->where('parent_id', 0);
         $grid->model()->with(['children', 'roles', 'children.roles']);
 

@@ -68,7 +68,7 @@ class Menu extends AbstractAdminController
             });
         }));
         $form->item('title', '名称')->required();
-        $form->item('icon', '图标')->component(IconChoose::make())->required();
+        $form->item('icon', '图标')->component(IconChoose::make())->ignoreEmpty();
         $form->item('uri', 'URL')->required();
         $form->item('order', '排序')->component(InputNumber::make(1)->min(0));
         $form->item('roles', '角色')->component(Select::make()->block()->multiple()->options(function () use ($roleModel) {
