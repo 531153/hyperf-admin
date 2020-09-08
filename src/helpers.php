@@ -72,10 +72,9 @@ if (!function_exists('request')) {
             return $url;
         }
         $uri = request()->getUri();
-        if (!empty($param)) {
-            $param = http_build_query($param);
-            $uri->withQuery($param);
-        }
+        $param = http_build_query($param);
+        $uri->withQuery($param);
+
         return $uri->withPath($url)->__toString();
     }
 

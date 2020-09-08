@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Mzh\Admin\Controller\Admin;
 
+use Mzh\Admin\Components\Attrs\SelectOption;
 use Mzh\Admin\Components\Form\Select;
 use Mzh\Admin\Components\Grid\GSwitch;
 use Mzh\Admin\Components\Widgets\Button;

@@ -2,6 +2,9 @@
 declare(strict_types=1);
 namespace Mzh\Admin;
 
+use Mzh\Admin\Interfaces\AuthInterface;
+use Mzh\Admin\Library\Auth;
+
 class ConfigProvider
 {
     public function __invoke(): array
@@ -15,6 +18,9 @@ class ConfigProvider
                         __DIR__
                     ],
                 ],
+            ],
+            'dependencies' => [
+                AuthInterface::class => Auth::class,
             ],
             'publish' => [
                 [

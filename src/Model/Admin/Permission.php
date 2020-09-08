@@ -6,22 +6,29 @@ use Mzh\Admin\Model\Model;
 use \Hyperf\Database\Model\Relations\BelongsToMany;
 use Hyperf\HttpServer\Request;
 use Hyperf\Utils\Str;
+use Mzh\Admin\Traits\ModelTree;
 
 
 class Permission extends Model
 {
+
+    //AdminBuilder,
+    use ModelTree {
+        ModelTree::boot as treeBoot;
+    }
+
     /**
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'path'];
+    protected $fillable = ['name', 'slug', 'path', 'parent_id'];
 
     /**
      * @var array
      */
     protected $casts = [
-        'created_at'=>"Y-m-d H:i:s",
-        'updated_at'=>"Y-m-d H:i:s",
-        'path'=>"array",
+        'created_at' => "Y-m-d H:i:s",
+        'updated_at' => "Y-m-d H:i:s",
+        'path' => "array",
     ];
 
     /**
@@ -31,12 +38,8 @@ class Permission extends Model
      */
     public function __construct(array $attributes = [])
     {
-        $connection = config('admin.database.connection') ?: config('database.default');
-
-        $this->setConnection($connection);
-
         $this->setTable(config('admin.database.permissions_table'));
-
+        $this->setTitleColumn('name');
         parent::__construct($attributes);
     }
 
@@ -170,7 +173,7 @@ class Permission extends Model
      *
      * @return void
      */
-    protected function boot():void
+    protected function boot(): void
     {
         parent::boot();
 //        static::deleted(function ($model) {

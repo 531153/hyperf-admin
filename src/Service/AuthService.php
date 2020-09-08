@@ -55,7 +55,7 @@ class AuthService
                         array_pop($arr);
                         $arr[] = '*';
                         $route = implode('/', $arr);
-                        $route_key = "$http_method::{$route}";
+                        $route_key = "ALL::{$route}";
                         $options[$route_key] = [
                             'label' => $route_key,
                             'value' => $route_key,

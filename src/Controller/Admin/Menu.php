@@ -60,9 +60,12 @@ class Menu extends AbstractAdminController
         $form = new Form(new $model());
         $form->size('medium');
         $form->item('parent_id', '上级目录')->component(Select::make(0)->options(function () use ($model) {
-            return $model::query()->where('parent_id', 0)->orderBy('order')->get()->map(function ($item) {
-                return SelectOption::make($item->id, $item->title);
-            })->prepend(SelectOption::make(0, '根目录'));
+            /** @var \Mzh\Admin\Model\Admin\Menu $model */
+            return $model::selectOptions(function ($model) {
+                $model::query()->where('parent_id', 0)->orderBy('order');
+            }, '根目录')->map(function ($title, $id) {
+                return SelectOption::make($id, $title);
+            });
         }));
         $form->item('title', '名称')->required();
         $form->item('icon', '图标')->component(IconChoose::make())->required();

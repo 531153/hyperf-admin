@@ -6,6 +6,7 @@ namespace Mzh\Admin\Controller;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Mzh\Admin\Facades\Admin;
+use Mzh\Admin\Interfaces\AuthInterface;
 
 /**
  * @AutoController(prefix="/admin")
@@ -14,10 +15,20 @@ use Mzh\Admin\Facades\Admin;
  */
 class IndexAdminController extends AbstractAdminController
 {
+
+    public function test(AuthInterface $auth)
+    {
+
+
+        p($auth);
+
+        //
+    }
+
     public function index()
     {
         $data = [
-            'isLocal'=>config('app.env')=="local",
+            'isLocal' => config('app.env') == "local",
             'menu' => Admin::menu(),
             'menuList' => Admin::menuList(),
             'logoShow' => config('admin.logo_show'),
@@ -28,11 +39,11 @@ class IndexAdminController extends AbstractAdminController
             'name' => config('admin.name'),
             'copyright' => config('admin.copyright'),
             'footerLinks' => config('admin.footerLinks'),
-            'uniqueOpened' => config('admin.unique_opened',false),
+            'uniqueOpened' => config('admin.unique_opened', false),
             'user' => $this->getUserData(),
             'url' => $this->getUrls()
         ];
-        $pageData = json_encode($data,256);
+        $pageData = json_encode($data, 256);
         $html = <<<EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -69,8 +80,9 @@ EOF;
 
     protected function getUserData()
     {
-        return json_decode('{"id":3,"username":"admin","name":"admin","avatar":"https:\/\/gw.alipayobjects.com\/zos\/antfincdn\/XAosXuNZyF\/BiazfanxmamNRoxxVxka.png"}',true);
+        return json_decode('{"id":3,"username":"admin","name":"admin","avatar":"https:\/\/gw.alipayobjects.com\/zos\/antfincdn\/XAosXuNZyF\/BiazfanxmamNRoxxVxka.png"}', true);
     }
+
     protected function getUrls()
     {
         return [

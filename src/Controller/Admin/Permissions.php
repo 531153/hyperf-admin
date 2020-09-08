@@ -15,6 +15,7 @@ use Mzh\Admin\Components\Grid\Tag;
 use Mzh\Admin\Form;
 use Mzh\Admin\Grid;
 use Mzh\Admin\Layout\Content;
+use Mzh\Admin\Model\Admin\Permission as PermissionAlias;
 use Mzh\Admin\Service\AuthService;
 use Mzh\Swagger\Annotation\ApiController;
 use Mzh\Swagger\Annotation\GetApi;
@@ -52,12 +53,15 @@ class Permissions extends AbstractAdminController
         $grid = new Grid(new $permissionModel());
         //$grid->dataUrl(route('admin.permissions.route'));
         $grid->tree();
+
+
+        $grid->model()->where('parent_id', 0);
+        $grid->model()->with(['children', 'roles', 'children.roles']);
+
         $grid->quickSearch(['kw', '搜索关键词']);
         $grid->tree();
         $grid->column('name', "名称");
         $grid->column('path', "授权节点")->component(Tag::make());
-
-
         $grid->dialogForm($this->form()->isDialog()->className('p-15')->labelWidth('auto'), '600px', ['添加权限', '编辑权限']);
         return $grid;
     }
@@ -68,6 +72,14 @@ class Permissions extends AbstractAdminController
         $permissionModel = config('admin.database.permissions_model');
 
         $form = new Form(new $permissionModel());
+        $form->item('parent_id', '上级目录')->component(Select::make(0)->options(function () use ($permissionModel) {
+            /** @var PermissionAlias $permissionModel */
+            return $permissionModel::selectOptions(function ($permission) {
+                return $permission::query()->where('parent_id', 0)->orderBy('order');
+            }, '无分组')->map(function ($title, $id) {
+                return SelectOption::make($id, $title);
+            });
+        }));
         $form->item('name', "名称")->required();
         $form->item('path', "授权节点")
             ->help('可以输入搜索')

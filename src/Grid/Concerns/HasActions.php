@@ -128,6 +128,7 @@ trait HasActions
         foreach ($this->addActions as $addAction) {
             $actions->push($addAction);
         }
+
         return [
             'hide' => $this->hide,
             'data' => $actions

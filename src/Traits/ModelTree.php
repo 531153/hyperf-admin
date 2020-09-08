@@ -5,6 +5,7 @@ namespace Mzh\Admin\Traits;
 use \Hyperf\Database\Model\Model;
 use Hyperf\DbConnection\Db;
 use Hyperf\Utils\Arr;
+use Hyperf\Utils\Collection;
 
 trait ModelTree
 {
@@ -232,13 +233,14 @@ trait ModelTree
      * @param \Closure|null $closure
      * @param string $rootText
      *
-     * @return array
+     * @return Collection
      */
     public static function selectOptions(\Closure $closure = null, $rootText = 'ROOT')
     {
         $options = (new static())->withQuery($closure)->buildSelectOptions();
 
-        return collect($options)->prepend($rootText, 0)->all();
+        //return collect($options)->prepend($rootText, 0)->all();
+        return collect($options)->prepend($rootText, 0);
     }
 
     /**
@@ -251,7 +253,7 @@ trait ModelTree
      *
      * @return array
      */
-    protected function buildSelectOptions(array $nodes = [], $parentId = 0, $prefix = '', $space = '&nbsp;')
+    protected function buildSelectOptions(array $nodes = [], $parentId = 0, $prefix = '', $space = '·')
     {
         $prefix = $prefix ?: '┝' . $space;
 

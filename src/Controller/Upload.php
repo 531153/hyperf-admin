@@ -55,7 +55,7 @@ class Upload extends AbstractAdminController
             throw new BusinessException(1000, '文件不能大于！' . ($fileSize / 1024 / 1024) . 'MB');
         }
         #检测类型
-        $imageMimes = explode(',', $config['file_mimes'] ?? 'zip,rar,ppt,word,xls,xlsx,doc,docx');
+        $imageMimes = explode(',', $config['file_mimes'] ?? 'txt,sql,zip,rar,ppt,word,xls,xlsx,doc,docx');
         if (!in_array($file->getExtension(), $imageMimes)) {
             throw new BusinessException(1000, '类型不允许！');
         }
