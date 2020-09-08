@@ -67,4 +67,5 @@ class Attributes
 
     public $dataVuex = false;
 
+
 }

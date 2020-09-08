@@ -135,6 +135,7 @@ trait TraitFormAttrs
     }
 
     /**
+     * 尺寸 medium / small / mini
      * 用于控制该表单内组件的尺寸
      * @param mixed $size
      * @return $this

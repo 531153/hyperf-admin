@@ -10,7 +10,7 @@ use Hyperf\Utils\Str;
 use Mzh\Admin\Components\Component;
 use Mzh\Admin\Grid\Actions;
 use Mzh\Admin\Grid\BatchActions;
-use Mzh\Admin\Grid\Column;
+use Mzh\Admin\Tree\Column;
 use Mzh\Admin\Grid\Concerns\HasDefaultSort;
 use Mzh\Admin\Grid\Concerns\HasFilter;
 use Mzh\Admin\Grid\Concerns\HasGridAttributes;
@@ -19,11 +19,11 @@ use Mzh\Admin\Grid\Concerns\HasQuickSearch;
 use Mzh\Admin\Grid\Filter;
 use Mzh\Admin\Grid\Model;
 use Mzh\Admin\Grid\Table\Attributes;
-use Mzh\Admin\Grid\Toolbars;
+use Mzh\Admin\Tree\Toolbars;
 use Mzh\Admin\Layout\Content;
 
 
-class Grid extends Component
+class Tree extends Component
 {
     use HasGridAttributes, HasPageAttributes, HasDefaultSort, HasQuickSearch, HasFilter;
 
@@ -31,7 +31,7 @@ class Grid extends Component
      * 组件名称
      * @var string
      */
-    protected $componentName = 'Grid';
+    protected $componentName = 'Tree';
 
     /**
      * @var Model
@@ -53,9 +53,10 @@ class Grid extends Component
      */
     protected $keyName = 'id';
     /**
+     * 显示选择框
      * @var bool
      */
-    protected $tree = false;
+    protected $showCheckbox = true;
     /**
      * 表格数据来源
      * @var string
@@ -99,11 +100,6 @@ class Grid extends Component
     {
         $this->attributes = new Attributes();
         $this->dataUrl = admin_api_url(request()->path()).'/list';
-        $this->model = new Model($model, $this);
-        if ($model) {
-            $this->keyName = $model->getKeyName();
-            $this->defaultSort($model->getKeyName(), "asc");
-        }
         $this->isGetData = request('get_data') == "true";
         $this->toolbars = new Toolbars($this);
         $this->batchActions = new BatchActions();
@@ -184,7 +180,7 @@ class Grid extends Component
      */
     public function tree($tree = true)
     {
-        $this->tree = $tree;
+        $this->showCheckbox = $tree;
         return $this;
     }
 
@@ -214,7 +210,7 @@ class Grid extends Component
     protected function addColumn($name = '', $label = '', $columnKey = null)
     {
         $column = new Column($name, $label, $columnKey);
-        $column->setGrid($this);
+        $column->setTree($this);
         $this->columns[] = $column;
         return $column;
     }
@@ -313,30 +309,6 @@ class Grid extends Component
     }
 
     /**
-     * @param Form $dialogForm
-     * @param  $width
-     * @param  $title
-     * @return Grid
-     */
-    public function dialogForm(Form $dialogForm, $width = '750px', $title = ['添加', '修改'])
-    {
-        $this->dialogForm = $dialogForm;
-       // $this->dialogForm->labelPosition('right')->labelWidth('90px');
-        $this->dialogFormWidth = $width;
-        $this->dialogTitle = $title;
-        return $this;
-    }
-
-    /**
-     * @return Form
-     */
-    public function getDialogForm()
-    {
-        return $this->dialogForm;
-    }
-
-
-    /**
      * @param $closure
      * @return $this
      */
@@ -421,45 +393,33 @@ class Grid extends Component
             ];
             $viewData['keyName'] = $this->keyName;
             $viewData['selection'] = $this->attributes->selection;
-            $viewData['tree'] = $this->tree;
-            $viewData['defaultSort'] = $this->defaultSort;
+            $viewData['showCheckbox'] = $this->showCheckbox;
             $viewData['columnAttributes'] = $this->columnAttributes;
             $viewData['attributes'] = (array)$this->attributes;
             $viewData['dataUrl'] = $this->dataUrl;
             $viewData['method'] = $this->method;
-            $viewData['hidePage'] = $this->isHidePage();
-            $viewData['pageSizes'] = $this->pageSizes;
-            $viewData['perPage'] = $this->perPage;
-            $viewData['pageLayout'] = $this->pageLayout;
-            $viewData['pageBackground'] = $this->pageBackground;
             $viewData['toolbars'] = $this->toolbars->builderData();
-            $viewData['batchActions'] = $this->batchActions->builderActions();
             $viewData['quickSearch'] = $this->quickSearch;
-            $viewData['filter'] = $this->filter->buildFilter();
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;
-            $viewData['dialogForm'] = $this->dialogForm;
-            $viewData['dialogFormWidth'] = $this->dialogFormWidth;
-            $viewData['dialogTitle'] = $this->dialogTitle;
             $viewData['ref'] = $this->getRef();
             return $viewData;
         }
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getComponentName(): string
+    public function isShowCheckbox(): bool
     {
-        return $this->componentName;
+        return $this->showCheckbox;
     }
 
     /**
-     * @param string $componentName
+     * @param bool $showCheckbox
      */
-    public function setComponentName(string $componentName)
+    public function setShowCheckbox(bool $showCheckbox): void
     {
-        $this->componentName = $componentName;
-        return $this;
+        $this->showCheckbox = $showCheckbox;
     }
 }

@@ -9,6 +9,7 @@ mix
   .setResourceRoot("/static")
   .setPublicPath("public")
   .copy("public", "../public/static")
+  .sourceMaps()
   .webpackConfig({
     resolve: {
       alias: {

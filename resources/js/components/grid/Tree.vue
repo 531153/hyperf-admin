@@ -58,6 +58,7 @@
         <el-tree
           :data="tableData"
           :draggable="attrs.attributes.draggable"
+          :showCheckbox="attrs.showCheckbox"
           default-expand-all
           v-loading="loading"
           :empty-text="attrs.attributes.emptyText"
@@ -77,7 +78,7 @@
               </template>
             </div>
             <div class="flex-c">
-              <Actions
+              <Actions v-if="attrs.actions"
                 :action_list="attrs.actions.data"
                 :scope="node"
                 :key_name="attrs.keyName"
@@ -119,14 +120,14 @@ export default {
   },
   mounted() {
     this.getData();
-    this.$bus.on("tableReload", () => {
+    this.$bus.on("treeReload", () => {
       this.getData();
     });
     this.path = this.$route.path;
   },
   destroyed() {
     try {
-      this.$bus.off("tableReload");
+      this.$bus.off("treeReload");
       window.removeEventListener("keydown", this.onEnt);
     } catch (e) {}
   },

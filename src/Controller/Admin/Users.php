@@ -9,6 +9,7 @@ use Mzh\Admin\Components\Form\Upload;
 use Mzh\Admin\Components\Grid\Avatar;
 use Mzh\Admin\Components\Grid\GSwitch;
 use Mzh\Admin\Components\Grid\Tag;
+use Mzh\Admin\Components\Widgets\Alert;
 use Mzh\Admin\Components\Widgets\Button;
 use Mzh\Admin\Components\Widgets\Dialog;
 use Mzh\Admin\Components\Widgets\Markdown;
@@ -32,6 +33,13 @@ class Users extends AbstractAdminController
 
         $userModel = config('admin.database.users_model');
         $grid = new Grid(new $userModel());
+        $grid->toolbars(function (Grid\Toolbars $toolbars){
+            $toolbars->addRight(Grid\Tools\ToolButton::make("测试")->dialog(function (Dialog $dialog){
+                $dialog->slot(function (Content $content) {
+                    $content->row(Alert::make("哈哈测试一下"));
+                });
+            }));
+        });
         $grid
             ->quickSearch(['name', 'username'])
             ->quickSearchPlaceholder("用户名 / 名称")
@@ -41,7 +49,6 @@ class Users extends AbstractAdminController
             ->stripe(true)->emptyText("暂无用户")
             ->perPage(10)
             ->autoHeight();
-
         $grid->column('id', "ID")->width(80);
         $grid->column('avatar', '头像')->width(80)->align('center')->component(Avatar::make());
         $grid->column('username', "用户名");

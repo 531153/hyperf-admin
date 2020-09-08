@@ -27,14 +27,12 @@ export default {
     },
     selfValue() {
       let value = this.value;
-
-      if (this.columnAttr.itemPrefix) {
+      if ((_.isArray(this.columnAttr)) && this.columnAttr.itemPrefix) {
         value = this.columnAttr.itemPrefix + "" + this.value;
       }
-      if (this.columnAttr.itemSuffix) {
+      if ((_.isArray(this.columnAttr)) && this.columnAttr.itemSuffix) {
         value = this.value + "" + this.columnAttr.itemSuffix;
       }
-
       return value;
     },
     componentName() {
