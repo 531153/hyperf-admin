@@ -6,14 +6,19 @@ namespace Mzh\Admin\Middleware;
 
 use Hyperf\Contract\ConfigInterface;
 use Hyperf\Contract\SessionInterface;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\Di\Exception\NotFoundException;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface as HttpResponse;
 use Hyperf\HttpServer\Router\Dispatched;
 use Hyperf\Utils\Context;
+use Mzh\Admin\Admin;
 use Mzh\Admin\Exception\UserLoginException;
+use Mzh\Admin\Interfaces\AuthInterface;
 use Mzh\Admin\Interfaces\UserInfoInterface;
 use Mzh\Admin\Library\Auth;
+use Mzh\Admin\Model\Admin\OperationLog;
+use Mzh\Helper\RunTimes as RunTimesAlias;
 use Mzh\Helper\Session\Session;
 use Mzh\JwtAuth\Exception\TokenValidException;
 use Mzh\JwtAuth\Jwt;
@@ -32,6 +37,7 @@ class PermissionMiddleware implements MiddlewareInterface
     protected $container;
 
     /**
+     * @Inject()
      * @var RequestInterface
      */
     protected $request;
@@ -63,9 +69,9 @@ class PermissionMiddleware implements MiddlewareInterface
      */
     private $handler;
 
-    public function __construct(Jwt $jwt, ConfigInterface $config, ContainerInterface $container, SessionInterface $session)
+    public function __construct(Jwt $jwt, AuthInterface $auth, ConfigInterface $config, ContainerInterface $container, SessionInterface $session)
     {
-        $this->auth = $container->get(Auth::class);
+        $this->auth = $auth;
         $this->session = $session;
         $this->jwt = $jwt;
         $this->config = $config;
@@ -74,17 +80,22 @@ class PermissionMiddleware implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $time = new RunTimesAlias;
+        $time->start();
+
         /** @var Dispatched $router */
         $router = $request->getAttribute(Dispatched::class);
         if (!$router->isFound()) {
             throw new NotFoundException('接口不存在');
         }
         $currUrl = $request->getMethod() . '::' . $router->handler->route;
-        $security = $this->auth->isOpen($currUrl);
+        $security = FALSE; //$this->auth->isOpen($currUrl);
         #如果为开放资源直接处理
         if (!$security) {
             try {
                 $response = $handler->handle($request);
+                $this->log($time->spent());
+                p("执行时间：" . $time->spent());
             } finally {
                 /** @var SessionInterface $session */
                 $session = Context::get(SessionInterface::class);
@@ -100,7 +111,7 @@ class PermissionMiddleware implements MiddlewareInterface
         try {
             $user = $this->jwt->verifyToken($token);
         } catch (TokenValidException $validException) {
-            throw new UserLoginException(50012,$validException->getMessage());
+            throw new UserLoginException(50012, $validException->getMessage());
         }
         $session = new Session($this->handler, $user->getIssuer() . ':' . (string)$user->getAudience());
         $session->start();
@@ -138,5 +149,26 @@ class PermissionMiddleware implements MiddlewareInterface
                 break;
         }
         return $response;
+    }
+
+    /**
+     * @todo
+     * 暂未完成
+     */
+    public function log($runtime = '')
+    {
+        $log = [
+            'user_id' => 1,
+            'runtime' => $runtime,
+            'path' => substr($this->request->getUri()->getPath(), 0, 255),
+            'method' => $this->request->getMethod(),
+            'ip' => getClientIp(),
+            'input' => json_encode($this->request->all(), 256),
+        ];
+        try {
+            OperationLog::create($log);
+        } catch (\Exception $exception) {
+            // pass
+        }
     }
 }

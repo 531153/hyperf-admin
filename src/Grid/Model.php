@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace Mzh\Admin\Grid;
 
 
@@ -390,6 +391,9 @@ class Model
         if (empty($this->data)) {
             $this->data = $this->get();
         }
+        if ($toArray) {
+            return $this->data->toArray();
+        }
         return $this->data;
     }
 
@@ -397,8 +401,6 @@ class Model
     {
         $columns = $this->grid->getColumns();
         $items = collect();
-
-
         foreach ($data as $key => $row) {
             $item = [];
 

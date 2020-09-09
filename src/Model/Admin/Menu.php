@@ -81,7 +81,7 @@ class Menu extends Model
         if (config('admin.check_menu_roles') !== false) {
             $query->with('roles:id,name,slug');
         }
-        $all_list = $query->selectRaw('*,title as label, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();
+        $all_list = $query->selectRaw('*, ' . $orderColumn . ' ROOT')->orderByRaw($byOrder)->get()->toArray();
 
 //        if (config('admin.check_route_permission') !== false) {
 //            $permissions = config('admin.database.permissions_model')::query()->get();

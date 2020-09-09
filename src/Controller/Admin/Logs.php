@@ -46,6 +46,7 @@ class Logs extends AbstractAdminController
         $grid->column('user.name', '用户', 'user_id')->help("操作用户")->sortable()->component(Route::make("/admin/logs/list?user_id={user.id}")->type("primary"));
         $grid->column('method', '请求方式')->width(100)->align('center')->component(Tag::make()->type(['GET' => 'info', 'POST' => 'success']));
         $grid->column('path', '路径')->help('操作URL')->sortable();
+        $grid->column('runtime', '执行时间')->help('毫秒');
         $grid->column('ip', 'IP')->component(Route::make("/admin/logs/list?ip={ip}")->type("primary"));
         $grid->column('created_at', "创建时间")->sortable();
 

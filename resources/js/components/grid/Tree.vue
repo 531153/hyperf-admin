@@ -57,6 +57,7 @@
       <div style="padding:10px;">
         <el-tree
           :data="tableData"
+          :ref="attrs.ref || 'tree'"
           :draggable="attrs.attributes.draggable"
           :showCheckbox="attrs.showCheckbox"
           default-expand-all
@@ -64,6 +65,7 @@
           :empty-text="attrs.attributes.emptyText"
           :indent="10"
           @node-drop="onNodeDrop"
+          @node-click	="onNodeClick"
         >
           <div class="custom-tree-node" slot-scope="{ data, node }">
             <div class="custom-tree-node-item">
@@ -173,6 +175,12 @@ export default {
       console.log(before);
       console.log(after);
       console.log(inner);
+    },
+    onNodeClick( data,node,inner) {
+      console.log(data);
+      console.log(inner);
+      console.log(this.$refs);
+      console.log(this);
     }
   }
 };

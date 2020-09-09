@@ -182,8 +182,7 @@ trait ModelTree
         if ($this->queryCallback instanceof \Closure) {
             $self = call_user_func($this->queryCallback, $self);
         }
-
-        return $self->orderByRaw($byOrder)->get(['*','title as label'])->toArray();
+        return $self->orderByRaw($byOrder)->get()->toArray();
     }
 
     /**

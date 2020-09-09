@@ -1,5 +1,5 @@
 <template>
-  <div :style="attrs.style" :class="attrs.className">
+  <div :style="attrs.style" :class="attrs.className" :ref="attrs.ref || 'content'">
     <div class="layout-page-header" v-if="attrs.showHeader">
       <div class="layout-page-header-title" v-html="attrs.title"></div>
       <div
