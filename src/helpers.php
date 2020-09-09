@@ -83,14 +83,14 @@ if (!function_exists('request')) {
     /**
      * Get admin path.
      *
-     * @param string $path
-     *
+     * @param null $key
+     * @param null $default
      * @return string
      */
-    function request($key = null)
+    function request($key = null,$default = null)
     {
         if ($key !== null) {
-            return (new  Request())->all()[$key] ?? '';
+            return (new  Request())->all()[$key] ?? $default;
         }
         return new  Request();
     }

@@ -180,6 +180,7 @@ export default {
       if (this.attrs.refData) {
         try {
           this.$bus.emit(this.attrs.refData.ref, data);
+          this.$bus.emit("tableReload", data);
         } catch (e) {
           console.log(e)
         }

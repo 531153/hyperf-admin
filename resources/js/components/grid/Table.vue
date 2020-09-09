@@ -318,7 +318,10 @@ export default {
     }
 
     //监听事件
-    this.$bus.on("tableReload", () => {
+    this.$bus.on("tableReload", (data) => {
+      if (_.isObject(data)){
+        this.filterFormData['parent_id']  = data.id
+      }
       this.getData();
     });
     this.$bus.on("tableSetLoading", (status) => {

@@ -270,8 +270,6 @@ class Model
                 $method = 'orderBy';
                 $arguments = [$column, $this->sort['type']];
             }
-
-
             $this->queries->push([
                 'method' => $method,
                 'arguments' => $arguments,
@@ -403,12 +401,10 @@ class Model
         $items = collect();
         foreach ($data as $key => $row) {
             $item = [];
-
             foreach ($this->grid->getAppendFields() as $field) {
                 data_set($item, $field, data_get($row, $field));
             }
             foreach ($columns as $column) {
-
                 if (Str::contains($column->getName(), '.')) {
                     list($relationName, $relationColumn) = explode('.', $column->getName());
                     //如果是集合
@@ -429,10 +425,7 @@ class Model
             if (!$this->grid->getHideActions()) {
                 data_set($item, 'grid_actions', $this->grid->getActions($row, $key));
             }
-
-
             data_set($item, $this->grid->getKeyName(), data_get($row, $this->grid->getKeyName()));
-
             //如果存在下级
             if ($TreeChildren = data_get($row, $this->grid->getTreeChildrenName())) {
                 //递归处理下级列表
@@ -478,7 +471,6 @@ class Model
 
         $this->setSort();
         $this->setPaginate();
-
 
         $this->queries->unique()->each(function ($query) {
             $this->model = call_user_func_array([$this->model, $query['method']], $query['arguments']);

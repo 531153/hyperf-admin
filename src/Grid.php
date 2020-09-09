@@ -395,9 +395,11 @@ class Grid extends Component
             ];
         }
 
+
         $this->applyQuery();
 
         $data = $this->model->buildData();
+     
         return [
             'code' => 200,
             'data' => $data

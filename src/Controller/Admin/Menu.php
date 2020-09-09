@@ -34,7 +34,8 @@ class Menu extends AbstractAdminController
     {
         $userModel = config('admin.database.menu_model');
         $grid = new Grid(new $userModel());
-        $grid->model()->where('parent_id', 0);
+        $parent_id = $this->request->query('parent_id',0);
+        $grid->model()->where('parent_id', $parent_id);
         $grid->model()->with(['children', 'roles', 'children.roles']);
         $grid
             ->defaultSort('order', 'asc')
