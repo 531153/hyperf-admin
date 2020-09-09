@@ -14,8 +14,8 @@ use Hyperf\HttpServer\Router\Dispatched;
 use Hyperf\Utils\Context;
 use Mzh\Admin\Admin;
 use Mzh\Admin\Exception\UserLoginException;
-use Mzh\Admin\Interfaces\AuthInterface;
-use Mzh\Admin\Interfaces\UserInfoInterface;
+use Mzh\Admin\Contracts\AuthInterface;
+use Mzh\Admin\Contracts\UserInfoInterface;
 use Mzh\Admin\Library\Auth;
 use Mzh\Admin\Model\Admin\OperationLog;
 use Mzh\Helper\RunTimes as RunTimesAlias;
@@ -89,13 +89,17 @@ class PermissionMiddleware implements MiddlewareInterface
             throw new NotFoundException('接口不存在');
         }
         $currUrl = $request->getMethod() . '::' . $router->handler->route;
+
+
+      //  p($this->auth->hasPermission(1, 'admin', $currUrl));
+
+
         $security = FALSE; //$this->auth->isOpen($currUrl);
         #如果为开放资源直接处理
         if (!$security) {
             try {
                 $response = $handler->handle($request);
                 $this->log($time->spent());
-                p("执行时间：" . $time->spent());
             } finally {
                 /** @var SessionInterface $session */
                 $session = Context::get(SessionInterface::class);
@@ -153,7 +157,7 @@ class PermissionMiddleware implements MiddlewareInterface
 
     /**
      * @todo
-     * 暂未完成
+     * 暂未做性能优化
      */
     public function log($runtime = '')
     {

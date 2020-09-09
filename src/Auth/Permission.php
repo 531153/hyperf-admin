@@ -28,6 +28,7 @@ class Permission
             return;
         }
 
+
         if (Admin::user()->cannot($permission)) {
             static::error();
         }

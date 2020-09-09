@@ -215,11 +215,15 @@ export default {
     this.$bus.on("resetFormData", () => {
       this.formData = this._.cloneDeep(this.attrs.defaultValues);
     });
+    this.$bus.on("treeForm", data => {
+      this.formData = this._.cloneDeep(data);
+    });
   },
   destroyed() {
     this.formData = this._.cloneDeep(this.attrs.defaultValues);
     //取消监听
     try {
+      this.$bus.off("treeForm");
       this.$bus.off("resetFormData");
     } catch (e) {}
   },

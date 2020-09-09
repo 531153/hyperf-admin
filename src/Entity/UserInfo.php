@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Mzh\Admin\Entity;
 
-use Mzh\Admin\Interfaces\UserInfoInterface;
+use Mzh\Admin\Contracts\UserInfoInterface;
 
 /**
  *

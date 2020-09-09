@@ -13,11 +13,11 @@ class AuthService
         $router = getContainer(DispatcherFactory::class)->getRouter('http');
         $data = $router->getData();
         $options = [];
-        $options["*"] =[
+        $options["*"] = [
             'label' => '*',
             'pid' => 0,
             'id' => 0,
-            'value' =>'*'
+            'value' => '*'
         ];
         $ids = [];
         foreach ($data as $routes_data) {
@@ -74,5 +74,11 @@ class AuthService
             }
         }
         return array_values($options);
+    }
+
+    public function getUserRoleIds($userId)
+    {
+
+        return '';
     }
 }

@@ -6,7 +6,7 @@ namespace Mzh\Admin\Controller;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Mzh\Admin\Facades\Admin;
-use Mzh\Admin\Interfaces\AuthInterface;
+use Mzh\Admin\Contracts\AuthInterface;
 
 /**
  * @AutoController(prefix="/admin")

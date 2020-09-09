@@ -2,11 +2,10 @@
 declare(strict_types=1);
 namespace Mzh\Admin;
 
-use Mzh\Admin\Controller\Admin\Auth;
 use Hyperf\HttpMessage\Server\Response;
 use Hyperf\HttpMessage\Stream\SwooleStream;
-use Mzh\Admin\Auth\Database\Administrator;
 use Mzh\Admin\Auth\Database\Menu;
+use Mzh\Admin\Library\Auth;
 
 class Admin
 {
@@ -14,47 +13,6 @@ class Admin
     protected $menu = [];
     protected $menuList = [];
     public static $metaTitle;
-
-    public static $scripts = [];
-
-    public static $styles = [];
-
-    public static $css = [];
-
-    public static function css($css = null)
-    {
-        if (!is_null($css)) {
-            return self::$css = array_merge(self::$css, (array)$css);
-        }
-        $css = array_merge(static::$css, []);
-        $css = array_filter(array_unique($css));
-        return view('admin::partials.css', compact('css'));
-    }
-
-
-    public static function script($name, $path)
-    {
-        static::$scripts[$name] = $path;
-
-        return new static;
-    }
-
-    public static function style($name, $path)
-    {
-        static::$styles[$name] = $path;
-
-        return new static;
-    }
-
-    public static function scripts()
-    {
-        return static::$scripts;
-    }
-
-    public static function styles()
-    {
-        return static::$styles;
-    }
 
     public static function setTitle($title)
     {

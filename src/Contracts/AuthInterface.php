@@ -1,6 +1,6 @@
 <?php
 
-namespace Mzh\Admin\Interfaces;
+namespace Mzh\Admin\Contracts;
 
 
 interface AuthInterface

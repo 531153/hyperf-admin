@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Mzh\Admin;
 
-use Mzh\Admin\Interfaces\AuthInterface;
+use Mzh\Admin\Contracts\AuthInterface;
 use Mzh\Admin\Library\Auth;
 
 class ConfigProvider

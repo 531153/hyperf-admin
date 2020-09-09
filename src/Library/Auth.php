@@ -5,7 +5,7 @@ namespace Mzh\Admin\Library;
 use Hyperf\Di\Annotation\AnnotationCollector;
 use Hyperf\HttpServer\Annotation\Mapping;
 use Hyperf\HttpServer\Router\DispatcherFactory;
-use Mzh\Admin\Interfaces\AuthInterface;
+use Mzh\Admin\Contracts\AuthInterface;
 use Mzh\Admin\Service\AuthService;
 use Mzh\Swagger\Annotation\ApiController;
 
@@ -154,12 +154,12 @@ class Auth implements AuthInterface
 
     }
 
-    private function getUserRole($userId, $iss = 'admin')
+    private function getUserRole($userId)
     {
-        $cacheKey = 'userRole:' . $iss . ':' . $userId;
+        $cacheKey = 'userRole:' .  $userId;
         $roles = json_decode(redis()->get($cacheKey), true);
         if (empty($roles)) {
-            $roles = make(AuthService::class)->getUserRoleIds($userId, $iss);
+            $roles = make(AuthService::class)->getUserRoleIds($userId);
             redis()->set($cacheKey, json_encode($roles));
         }
         return $roles;

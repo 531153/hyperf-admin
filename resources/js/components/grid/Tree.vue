@@ -177,10 +177,14 @@ export default {
       console.log(inner);
     },
     onNodeClick( data,node,inner) {
-      console.log(data);
-      console.log(inner);
-      console.log(this.$refs);
-      console.log(this);
+      if (this.attrs.refData) {
+        try {
+          this.$bus.emit(this.attrs.refData.ref, data);
+        } catch (e) {
+          console.log(e)
+        }
+        return;
+      }
     }
   }
 };
