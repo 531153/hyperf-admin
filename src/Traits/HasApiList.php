@@ -22,4 +22,5 @@ trait HasApiList
         //这里必须这样写
         return $this->isGetData() ? $this->grid()->jsonSerialize() : $content->jsonSerialize();
     }
+
 }

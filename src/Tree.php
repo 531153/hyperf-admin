@@ -403,7 +403,7 @@ class Tree extends Component
             $viewData['top'] = $this->top;
             $viewData['bottom'] = $this->bottom;
             $viewData['ref'] = $this->getRef();
-            return $viewData;
+            return array_filter($viewData);
         }
     }
 

@@ -19,8 +19,7 @@ class Image extends GridComponent
 
     public function __construct($value = null)
     {
-        $this->host = \Storage::disk(config('admin.upload.disk'))->url('/');
-
+        $this->host = config('admin.upload.host');
         $this->componentValue($value);
     }
 
@@ -104,8 +103,8 @@ class Image extends GridComponent
      */
     public function size($width = null, $height = null)
     {
-        if ($width) $this->style(collect($this->style)->add(['width' => is_int($width) ? $width . 'px' : $width]));
-        if ($height) $this->style(collect($this->style)->add(['height' => is_int($height) ? $height . 'px' : $height]));
+        if ($width) $this->style(collect($this->style)->push(['width' => is_int($width) ? $width . 'px' : $width]));
+        if ($height) $this->style(collect($this->style)->push(['height' => is_int($height) ? $height . 'px' : $height]));
 
         return $this;
     }

@@ -27,10 +27,10 @@ export default {
     },
     selfValue() {
       let value = this.value;
-      if ((_.isArray(this.columnAttr)) && this.columnAttr.itemPrefix) {
+      if (this.columnAttr !== undefined && this.columnAttr.itemPrefix) {
         value = this.columnAttr.itemPrefix + "" + this.value;
       }
-      if ((_.isArray(this.columnAttr)) && this.columnAttr.itemSuffix) {
+      if (this.columnAttr !== undefined && this.columnAttr.itemSuffix) {
         value = this.value + "" + this.columnAttr.itemSuffix;
       }
       return value;

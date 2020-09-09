@@ -17,7 +17,7 @@ class AdminJsonBuilder implements \JsonSerializable
                 $data[$key] = $val;
             }
         }
-        return $data;
+        return array_filter($data);
     }
     public function __toString():string
     {

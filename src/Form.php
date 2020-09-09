@@ -768,16 +768,13 @@ class Form extends Component
      */
     public function jsonSerialize()
     {
-
         if (count($this->formItemsAttr) <= 0) {
             $this->items($this->formItems);
         }
-
         if ($this->isGetData) {
             return $this->editData($this->getResourceId());
         }
-
-        return [
+        return array_filter([
             'componentName' => $this->componentName,
             'action' => $this->getAction(),
             'dataUrl' => $this->dataUrl,
@@ -793,7 +790,7 @@ class Form extends Component
             'top' => $this->top,
             'bottom' => $this->bottom,
             'actions' => $this->actions->builderActions()
-        ];
+        ]);
 
     }
 
